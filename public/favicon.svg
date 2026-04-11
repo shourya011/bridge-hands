@@ -1,0 +1,32 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background -->
+  <rect width="32" height="32" rx="6" fill="url(#grad)"/>
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#4F46E5"/>
+      <stop offset="100%" style="stop-color:#7C3AED"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Simplified Hand (Left) -->
+  <g transform="translate(6, 10)">
+    <ellipse cx="3" cy="5" rx="2.5" ry="3.5" fill="white" opacity="0.95"/>
+    <rect x="2" y="1" width="1.2" height="4" rx="0.6" fill="white" opacity="0.95"/>
+    <rect x="3.5" y="0.5" width="1.2" height="4.5" rx="0.6" fill="white" opacity="0.95"/>
+    <rect x="5" y="1" width="1.2" height="4" rx="0.6" fill="white" opacity="0.95"/>
+  </g>
+  
+  <!-- Simplified Hand (Right) -->
+  <g transform="translate(18, 10)">
+    <ellipse cx="5" cy="5" rx="2.5" ry="3.5" fill="white" opacity="0.95"/>
+    <rect x="4.8" y="1" width="1.2" height="4" rx="0.6" fill="white" opacity="0.95"/>
+    <rect x="3.3" y="0.5" width="1.2" height="4.5" rx="0.6" fill="white" opacity="0.95"/>
+    <rect x="1.8" y="1" width="1.2" height="4" rx="0.6" fill="white" opacity="0.95"/>
+  </g>
+  
+  <!-- Bridge Connection -->
+  <path d="M 11 15 Q 16 12 21 15" stroke="#F59E0B" stroke-width="1.5" fill="none" stroke-linecap="round" opacity="0.9"/>
+  
+  <!-- "SB" Text -->
+  <text x="16" y="27" font-family="Arial" font-size="6" font-weight="bold" fill="white" text-anchor="middle" opacity="0.95">SB</text>
+</svg>

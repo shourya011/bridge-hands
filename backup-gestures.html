@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignBridge - Gesture Backup Tool</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+
+        .info-box {
+            background: #f8f9ff;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .info-box p {
+            color: #555;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .status {
+            background: #e8eaf6;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .status-item:last-child {
+            border-bottom: none;
+        }
+
+        .status-label {
+            font-weight: 600;
+            color: #333;
+        }
+
+        .status-value {
+            color: #667eea;
+            font-weight: 600;
+        }
+
+        .button-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .gesture-list {
+            background: #f8f9ff;
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 20px;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .gesture-item {
+            background: white;
+            padding: 15px;
+            margin-bottom: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .gesture-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .gesture-name {
+            font-weight: 600;
+            color: #333;
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        .gesture-info {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .success {
+            background: #4caf50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .error {
+            background: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            font-weight: 600;
+            display: none;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .file-input-wrapper input[type=file] {
+            position: absolute;
+            left: -9999px;
+        }
+
+        .loading {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 3px solid rgba(255,255,255,.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>
+            <span>💾</span>
+            Gesture Backup Tool
+        </h1>
+        <p class="subtitle">Backup and restore your trained sign language gestures</p>
+
+        <div class="info-box">
+            <h3>📋 About This Tool</h3>
+            <p>
+                This tool helps you backup your personally trained gestures from SignBridge. 
+                Your gestures are stored in your browser's IndexedDB database. You can export 
+                them to a JSON file for safekeeping and restore them later if needed.
+            </p>
+        </div>
+
+        <div class="status" id="statusBox">
+            <div class="status-item">
+                <span class="status-label">Database Status:</span>
+                <span class="status-value" id="dbStatus">Checking...</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Gestures:</span>
+                <span class="status-value" id="totalGestures">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Total Samples:</span>
+                <span class="status-value" id="totalSamples">-</span>
+            </div>
+            <div class="status-item">
+                <span class="status-label">Database Size:</span>
+                <span class="status-value" id="dbSize">-</span>
+            </div>
+        </div>
+
+        <div class="button-group">
+            <button id="loadBtn" onclick="loadGestures()">
+                <span>📂</span>
+                <span>Load Gestures</span>
+            </button>
+            <button id="backupBtn" onclick="backupGestures()" disabled>
+                <span>💾</span>
+                <span>Backup to File</span>
+            </button>
+            <button id="restoreBtn" onclick="document.getElementById('fileInput').click()" disabled>
+                <span>📥</span>
+                <span>Restore from File</span>
+            </button>
+        </div>
+
+        <div class="file-input-wrapper hidden">
+            <input type="file" id="fileInput" accept=".json" onchange="restoreGestures(event)">
+        </div>
+
+        <div class="success" id="successMsg"></div>
+        <div class="error" id="errorMsg"></div>
+
+        <div class="gesture-list hidden" id="gestureList">
+            <h3 style="margin-bottom: 15px; color: #667eea;">Your Trained Gestures:</h3>
+            <div id="gestureContainer"></div>
+        </div>
+    </div>
+
+    <script>
+        let db = null;
+        let gestures = [];
+
+        // Open IndexedDB connection
+        function openDatabase() {
+            return new Promise((resolve, reject) => {
+                const request = indexedDB.open('GestureSignLanguageDB', 1);
+
+                request.onerror = () => {
+                    console.error('Failed to open database:', request.error);
+                    reject(request.error);
+                };
+
+                request.onsuccess = () => {
+                    db = request.result;
+                    console.log('Database opened successfully');
+                    resolve(db);
+                };
+
+                request.onupgradeneeded = (event) => {
+                    const database = event.target.result;
+                    if (!database.objectStoreNames.contains('gestures')) {
+                        const objectStore = database.createObjectStore('gestures', { keyPath: 'gestureName' });
+                        objectStore.createIndex('timestamp', 'timestamp', { unique: false });
+                    }
+                };
+            });
+        }
+
+        // Load gestures from IndexedDB
+        async function loadGestures() {
+            const loadBtn = document.getElementById('loadBtn');
+            const originalHTML = loadBtn.innerHTML;
+            loadBtn.innerHTML = '<span class="loading"></span><span>Loading...</span>';
+            loadBtn.disabled = true;
+
+            try {
+                if (!db) {
+                    await openDatabase();
+                }
+
+                const transaction = db.transaction(['gestures'], 'readonly');
+                const objectStore = transaction.objectStore('gestures');
+                const request = objectStore.getAll();
+
+                request.onsuccess = () => {
+                    gestures = request.result;
+                    displayGestures();
+                    updateStatus();
+                    document.getElementById('backupBtn').disabled = gestures.length === 0;
+                    document.getElementById('restoreBtn').disabled = false;
+                    showSuccess(`Loaded ${gestures.length} gesture(s) successfully!`);
+                    loadBtn.innerHTML = originalHTML;
+                    loadBtn.disabled = false;
+                };
+
+                request.onerror = () => {
+                    showError('Failed to load gestures from database');
+                    loadBtn.innerHTML = originalHTML;
+                    loadBtn.disabled = false;
+                };
+            } catch (error) {
+                showError('Error connecting to database: ' + error.message);
+                loadBtn.innerHTML = originalHTML;
+                loadBtn.disabled = false;
+            }
+        }
+
+        // Display gestures in the list
+        function displayGestures() {
+            const gestureList = document.getElementById('gestureList');
+            const gestureContainer = document.getElementById('gestureContainer');
+
+            if (gestures.length === 0) {
+                gestureList.classList.add('hidden');
+                return;
+            }
+
+            gestureList.classList.remove('hidden');
+            gestureContainer.innerHTML = '';
+
+            gestures.forEach(gesture => {
+                const item = document.createElement('div');
+                item.className = 'gesture-item';
+                
+                const totalSamples = gesture.samples ? gesture.samples.length : 0;
+                const timestamp = gesture.timestamp ? new Date(gesture.timestamp).toLocaleString() : 'Unknown';
+                
+                item.innerHTML = `
+                    <div class="gesture-name">🤟 ${gesture.gestureName}</div>
+                    <div class="gesture-info">
+                        Samples: ${totalSamples} | 
+                        Confidence: ${(gesture.confidenceThreshold * 100).toFixed(0)}% | 
+                        Trained: ${timestamp}
+                    </div>
+                `;
+                gestureContainer.appendChild(item);
+            });
+        }
+
+        // Update status display
+        function updateStatus() {
+            const totalSamples = gestures.reduce((sum, g) => sum + (g.samples ? g.samples.length : 0), 0);
+            const dbSizeBytes = new Blob([JSON.stringify(gestures)]).size;
+            const dbSizeKB = (dbSizeBytes / 1024).toFixed(2);
+
+            document.getElementById('dbStatus').textContent = gestures.length > 0 ? 'Connected ✓' : 'No data';
+            document.getElementById('totalGestures').textContent = gestures.length;
+            document.getElementById('totalSamples').textContent = totalSamples;
+            document.getElementById('dbSize').textContent = dbSizeKB + ' KB';
+        }
+
+        // Backup gestures to file
+        function backupGestures() {
+            if (gestures.length === 0) {
+                showError('No gestures to backup. Please load gestures first.');
+                return;
+            }
+
+            try {
+                const dataStr = JSON.stringify(gestures, null, 2);
+                const dataBlob = new Blob([dataStr], { type: 'application/json' });
+                const url = URL.createObjectURL(dataBlob);
+                
+                const link = document.createElement('a');
+                link.href = url;
+                link.download = `signbridge-gestures-backup-${Date.now()}.json`;
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                URL.revokeObjectURL(url);
+
+                showSuccess(`Backup created successfully! ${gestures.length} gesture(s) exported.`);
+            } catch (error) {
+                showError('Failed to create backup: ' + error.message);
+            }
+        }
+
+        // Restore gestures from file
+        async function restoreGestures(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    const importedGestures = JSON.parse(e.target.result);
+                    
+                    if (!Array.isArray(importedGestures)) {
+                        throw new Error('Invalid backup file format');
+                    }
+
+                    if (!db) {
+                        await openDatabase();
+                    }
+
+                    const transaction = db.transaction(['gestures'], 'readwrite');
+                    const objectStore = transaction.objectStore('gestures');
+
+                    let imported = 0;
+                    for (const gesture of importedGestures) {
+                        await new Promise((resolve, reject) => {
+                            const request = objectStore.put(gesture);
+                            request.onsuccess = () => {
+                                imported++;
+                                resolve();
+                            };
+                            request.onerror = () => reject(request.error);
+                        });
+                    }
+
+                    showSuccess(`Restored ${imported} gesture(s) successfully!`);
+                    await loadGestures();
+                    
+                } catch (error) {
+                    showError('Failed to restore gestures: ' + error.message);
+                }
+            };
+
+            reader.onerror = () => {
+                showError('Failed to read file');
+            };
+
+            reader.readAsText(file);
+            event.target.value = ''; // Reset file input
+        }
+
+        // Show success message
+        function showSuccess(message) {
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            errorMsg.style.display = 'none';
+            successMsg.textContent = message;
+            successMsg.style.display = 'block';
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        // Show error message
+        function showError(message) {
+            const successMsg = document.getElementById('successMsg');
+            const errorMsg = document.getElementById('errorMsg');
+            successMsg.style.display = 'none';
+            errorMsg.textContent = message;
+            errorMsg.style.display = 'block';
+            setTimeout(() => {
+                errorMsg.style.display = 'none';
+            }, 5000);
+        }
+
+        // Initialize on page load
+        window.addEventListener('load', async () => {
+            try {
+                await openDatabase();
+                document.getElementById('dbStatus').textContent = 'Ready';
+            } catch (error) {
+                document.getElementById('dbStatus').textContent = 'Error';
+                showError('Failed to connect to database');
+            }
+        });
+    </script>
+</body>
+</html>
