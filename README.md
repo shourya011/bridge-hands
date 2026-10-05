@@ -5,11 +5,11 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-## 🎯 Overview
+## Overview
 
 A web application that provides **real-time translation** of Indian Sign Language (ISL) gestures to text and speech in multiple languages. Built to enable seamless communication for 1.8 million ISL users in India.
 
-### ✨ Key Features
+### Key Features
 
 - 📹 **Real-time hand gesture detection** using MediaPipe
 - 🤖 **AI-powered ISL/ASL recognition** with 84%+ accuracy
@@ -23,7 +23,7 @@ A web application that provides **real-time translation** of Indian Sign Languag
 - 🔒 **Privacy-first** (all processing client-side)
 - 📱 **Cross-platform** (works in any modern browser)
 
-### 🎬 Quick Demo
+### Quick Demo
 
 1. Enable camera
 2. Show hand gesture
@@ -31,7 +31,7 @@ A web application that provides **real-time translation** of Indian Sign Languag
 
 Supports: Numbers (1-5), Hello, Good/Yes, Stop, OK, Peace, and more!
 
-## 🚀 Quick Start
+## Quick Start
 
 ### Prerequisites
 
@@ -55,7 +55,7 @@ npm run dev
 
 Navigate to `http://localhost:5173/translate` and start translating!
 
-### 📖 Documentation
+### Documentation
 
 - **[QUICKSTART.md](./QUICKSTART.md)** - Get started in 3 steps
 - **[ISL_FEATURES.md](./ISL_FEATURES.md)** - Complete feature documentation
@@ -67,7 +67,7 @@ Navigate to `http://localhost:5173/translate` and start translating!
 - **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Production deployment guide
 - **[SUMMARY.md](./SUMMARY.md)** - Implementation summary
 
-## 🎨 Screenshots
+## Screenshots
 
 ### Main Translation Interface
 <details>
@@ -79,7 +79,7 @@ Navigate to `http://localhost:5173/translate` and start translating!
 - **Controls**: Camera, audio, language selection
 </details>
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Core Technologies
 - **React 18.3** - UI framework
@@ -102,7 +102,7 @@ Navigate to `http://localhost:5173/translate` and start translating!
 - **Radix UI** - Primitives
 - **Lucide Icons** - Icon set
 
-## 📦 Project Structure
+## Project Structure
 
 ```
 bridge-hands-main/
@@ -129,7 +129,7 @@ bridge-hands-main/
 └── package.json                   # Dependencies
 ```
 
-## 🎯 Supported Gestures
+## Supported Gestures
 
 ### Numbers (0-10)
 - ✊ Zero (0)
@@ -144,13 +144,13 @@ bridge-hands-main/
 - 🤘 Nine (9)
 - 🙌 Ten (10)
 
-### Full Alphabet (A-Z) - NEW! 🎉
+### Full Alphabet (A-Z) - NEW! 
 - 🔤 All 26 letters supported
 - A, B, C, D, E, F, G, H, I, J, K, L, M
 - N, O, P, Q, R, S, T, U, V, W, X, Y, Z
 - See [GESTURE_VOCABULARY.md](./GESTURE_VOCABULARY.md) for hand shapes
 
-### Common Gestures - NEW! 🎉
+### Common Gestures - NEW! 
 - 👋 Bye / Wave
 - 📞 Call Me
 - 👎 Dislike / Thumbs Down
@@ -179,7 +179,7 @@ bridge-hands-main/
 - 🇮🇳 Punjabi (ਪੰਜਾਬੀ)
 - 🇮🇳 Urdu (اردو)
 
-**Total**: 60+ gestures recognized! 🚀
+**Total**: 60+ gestures recognized! 
 
 ## 🔧 Development
 
@@ -225,7 +225,7 @@ No environment variables needed! All processing is client-side.
 - Lazy loading of ML models
 - Code splitting for smaller bundles
 
-## 🔐 Privacy & Security
+## Privacy & Security
 
 - ✅ **All processing client-side** (no server uploads)
 - ✅ **No data storage** without explicit consent
@@ -233,7 +233,7 @@ No environment variables needed! All processing is client-side.
 - ✅ **No tracking or analytics** (by default)
 - ✅ **Open source** and transparent
 
-## 🌐 Deployment
+## Deployment
 
 ### Quick Deploy
 
@@ -251,7 +251,7 @@ netlify deploy --prod
 
 See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed instructions.
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Here's how you can help:
 
@@ -275,7 +275,7 @@ Please use GitHub Issues with:
 - Expected vs actual behavior
 - Screenshots if applicable
 
-## 📈 Roadmap
+## Roadmap
 
 ### Version 2.0 (Current) ✨
 - ✅ Real-time hand detection
@@ -303,7 +303,7 @@ Please use GitHub Issues with:
 - [ ] Community gesture library
 - [ ] Facial expression support
 
-## 🏆 Achievements
+## Achievements
 
 ### Impact
 - Supports 1.8M ISL users in India
@@ -317,11 +317,11 @@ Please use GitHub Issues with:
 - Privacy-first architecture
 - Cross-platform support
 
-## 📄 License
+## License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - **MediaPipe** by Google - Hand tracking technology
 - **shadcn/ui** - UI component system
@@ -329,7 +329,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **[SiddharthaChakrabarty/Sign-Language-Translation](https://github.com/SiddharthaChakrabarty/Sign-Language-Translation-Across-Multiple-Languages)** - Repository inspiration for comprehensive gesture dataset
 - **Contributors** - Everyone who helped improve this project
 
-## 🆕 Recent Updates (Version 2.0)
+## Recent Updates (Version 2.0)
 
 ### Major Enhancements
 - ✅ Added **full A-Z alphabet recognition** (26 letters)
@@ -348,20 +348,20 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 See [UPGRADE_SUMMARY.md](./UPGRADE_SUMMARY.md) for complete details.
 
-## 📞 Support
+## Support
 
-- 📧 Email: support@example.com
-- 💬 Discussions: GitHub Discussions
-- 🐛 Issues: GitHub Issues
-- 📖 Docs: See documentation files
+- Email: support@example.com
+- Discussions: GitHub Discussions
+- Issues: GitHub Issues
+- Docs: See documentation files
 
-## 🌟 Star History
+## Star History
 
 If this project helped you, please give it a ⭐!
 
 ---
 
-## 📚 Additional Resources
+## Additional Resources
 
 ### Learning ISL
 - [Indian Sign Language Research and Training Center](https://www.islrtc.nic.in/)
@@ -379,4 +379,4 @@ If this project helped you, please give it a ⭐!
 
 ---
 
-*Breaking barriers, building bridges* 🌉✨
+*Breaking barriers, building bridges* 
