@@ -1,4 +1,4 @@
-# ISL Real-Time Translator 🌉
+# ISL Real-Time Translator
 
 > Breaking the silence with technology - Real-time Indian Sign Language translation powered by AI
 
